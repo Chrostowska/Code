@@ -1,0 +1,123 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyPGx1YVw8G3axbM2EILJ6NM",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Chrostowska/Code/blob/main/TF\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "vQwdGCtaoLgJ",
+        "outputId": "c460363c-d859-4f9b-c9aa-27a8cb3913bb"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Colab only includes TensorFlow 2.x; %tensorflow_version has no effect.\n"
+          ]
+        }
+      ],
+      "source": [
+        "%tensorflow_version 2.x #for work with online notebook\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from __future__ import absolute_import, division, print_function, unicode_literals\n",
+        "\n",
+        "import numpy as np\n",
+        "import pandas as pd\n",
+        "import matplotlib.pyplot as plt\n",
+        "from IPython.display import clear_output #for that notebook\n",
+        "from six.moves import urllib #for this notebook\n",
+        "\n",
+        "import tensorflow.compat.v2.feature_column as fc #feature columns\n",
+        "import tensorflow as tf"
+      ],
+      "metadata": {
+        "id": "O10DTKNwxR8N"
+      },
+      "execution_count": 5,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#we need to split dataset before on 2 datasets so alghoritm will not seen datas for validation\n",
+        "\n",
+        "\n",
+        "dftrain = pd.read_csv('https://storage.googleapis.com/tf-datasets/titanic/train.csv')\n",
+        "dftest = pd.read_csv('https://storage.googleapis.com/tf-datasets/titanic/eval.csv')\n",
+        "#print(dftrain.head()) we have all columns\n",
+        "y_train = dftrain.pop('survived') #deleting column survived and safe it in variable y_train\n",
+        "y_eval = dftest.pop('survived')\n",
+        "print(dftrain.head())\n",
+        "print(y_train.head())"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "ve2-K0kuzhJd",
+        "outputId": "9b51ca0e-dc05-45d8-a87f-ef9458da7297"
+      },
+      "execution_count": 9,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "      sex   age  n_siblings_spouses  parch     fare  class     deck  \\\n",
+            "0    male  22.0                   1      0   7.2500  Third  unknown   \n",
+            "1  female  38.0                   1      0  71.2833  First        C   \n",
+            "2  female  26.0                   0      0   7.9250  Third  unknown   \n",
+            "3  female  35.0                   1      0  53.1000  First        C   \n",
+            "4    male  28.0                   0      0   8.4583  Third  unknown   \n",
+            "\n",
+            "   embark_town alone  \n",
+            "0  Southampton     n  \n",
+            "1    Cherbourg     n  \n",
+            "2  Southampton     y  \n",
+            "3  Southampton     n  \n",
+            "4   Queenstown     y  \n",
+            "0    0\n",
+            "1    1\n",
+            "2    1\n",
+            "3    1\n",
+            "4    0\n",
+            "Name: survived, dtype: int64\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
